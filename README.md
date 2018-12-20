@@ -1,4 +1,4 @@
-# gdrive-file-info [![npm package version](https://badgen.net/npm/v/gdrive-file-info)](https://npm.im/gdrive-file-info) [![github license](https://badgen.net/github/license/vladimyr/gdrive-file-info)](https://github.com/vladimyr/gdrive-file-info/blob/master/LICENSE) [![js semistandard style](https://badgen.net/badge/code%20style/semistandard/pink)](https://github.com/Flet/semistandard)
+# gdrive-file-info [![build status](https://badgen.net/travis/vladimyr/gdrive-file-info)](https://travis-ci.com/vladimyr/gdrive-file-info/) [![npm package version](https://badgen.net/npm/v/gdrive-file-info)](https://npm.im/gdrive-file-info) [![github license](https://badgen.net/github/license/vladimyr/gdrive-file-info)](https://github.com/vladimyr/gdrive-file-info/blob/master/LICENSE) [![js semistandard style](https://badgen.net/badge/code%20style/semistandard/pink)](https://github.com/Flet/semistandard)
 
 > Fetch file information for publicly shared Google Drive items.
 
