@@ -1,0 +1,51 @@
+{
+  "name": "gdrive-file-info",
+  "version": "0.0.0",
+  "description": "Fetch file information for publicly shared Google Drive items.",
+  "main": "index.js",
+  "scripts": {
+    "test": "tape test.js | tap-spec",
+    "lint": "eslint .",
+    "docs": "documentation readme ./index.js --section=API",
+    "release": "np"
+  },
+  "files": [
+    "index.js"
+  ],
+  "keywords": [
+    "google-drive",
+    "file-info",
+    "sharing",
+    "direct-link"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/vladimyr/gdrive-file-info.git"
+  },
+  "author": {
+    "email": "d.vladimyr@gmail.com",
+    "name": "Dario Vladovic",
+    "url": "https://github.com/vladimyr"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vladimyr/gdrive-file-info/issues"
+  },
+  "homepage": "https://github.com/vladimyr/gdrive-file-info",
+  "dependencies": {
+    "got": "^9.5.0"
+  },
+  "devDependencies": {
+    "documentation": "^9.1.0",
+    "eslint": "^5.9.0",
+    "eslint-config-semistandard": "^13.0.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^8.0.0",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "global-tunnel-ng": "^2.7.1",
+    "tap-spec": "^5.0.0",
+    "tape": "^4.9.1"
+  }
+}
