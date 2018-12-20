@@ -36,11 +36,11 @@ module.exports = {
 
 /**
  * @typedef {Object} FileInfo
- * @param {String} disposition Google Drive scan status
- * @param {String} fileName item filename
- * @param {String} downloadUrl generated direct download url
- * @param {String} scanResult Google Drive scan result
- * @param {Number} sizeBytes file size
+ * @property {String} disposition Google Drive scan status
+ * @property {String} fileName item filename
+ * @property {String} downloadUrl generated direct download url
+ * @property {String} scanResult Google Drive scan result
+ * @property {Number} sizeBytes file size
  */
 
 /**

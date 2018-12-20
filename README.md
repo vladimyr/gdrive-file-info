@@ -15,12 +15,12 @@
 -   [GDriveError](#gdriveerror)
     -   [Properties](#properties)
 -   [FileInfo](#fileinfo)
-    -   [Parameters](#parameters)
+    -   [Properties](#properties-1)
 -   [fetchInfo](#fetchinfo)
-    -   [Parameters](#parameters-1)
+    -   [Parameters](#parameters)
     -   [Examples](#examples)
 -   [getItemId](#getitemid)
-    -   [Parameters](#parameters-2)
+    -   [Parameters](#parameters-1)
     -   [Examples](#examples-1)
 
 ### GDriveError
@@ -37,7 +37,7 @@ Custom error class used for wrapping HTTP errors
 
 Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)
 
-#### Parameters
+#### Properties
 
 -   `disposition` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Google Drive scan status
 -   `fileName` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** item filename
