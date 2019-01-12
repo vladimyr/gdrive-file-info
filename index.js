@@ -27,6 +27,7 @@ class GDriveError extends Error {
     if (reason) this.reason = reason;
   }
 }
+Object.defineProperty(GDriveError.prototype, 'name', { value: GDriveError.name });
 
 module.exports = {
   GDriveError,

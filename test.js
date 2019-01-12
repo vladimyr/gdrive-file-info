@@ -20,14 +20,12 @@ test('Extract item id from `view` link', t => {
 });
 
 test('Use invalid item id', async t => {
-  t.plan(1);
+  t.plan(2);
   try {
     await fetchInfo('Invalid **video** id');
   } catch (err) {
-    t.equals(
-      err instanceof TypeError && err.message, 'Invalid ID provided.',
-      `throws TypeError: ${err.message}`
-    );
+    t.equals(err.name, TypeError.name, 'throws TypeError');
+    t.equals(err.message, 'Invalid ID provided.', `with message: ${err.message}`);
   }
 });
 
@@ -45,7 +43,7 @@ test('Fetch public video info', async t => {
   t.equals(info && info.sizeBytes, expected.sizeBytes, 'correct file fetched (size match)');
   t.equals(info && info.fileName, expected.fileName, 'correct filename');
   const downloadUrl = info && info.downloadUrl;
-  t.ok(
+  t.assert(
     downloadUrl && isUrl(downloadUrl) && downloadUrl.endsWith(id),
     `correct url=${downloadUrl}`
   );
@@ -53,27 +51,23 @@ test('Fetch public video info', async t => {
 
 test('Fetch missing video info', async t => {
   const url = 'https://drive.google.com/open?id=dummy_gO6Y4cFjfxszUb1LhdyeKrq_wGD';
-  t.plan(1);
+  t.plan(2);
   try {
     await fetchInfo(url);
   } catch (err) {
-    t.equals(
-      err instanceof GDriveError && err.message, 'Item is not found.',
-      `throws GDriveError: ${err.message}`
-    );
+    t.equals(err.name, GDriveError.name, 'throws GDriveError');
+    t.equals(err.message, 'Item is not found.', `with message: ${err.message}`);
   }
 });
 
 test('Fetch private video info', async t => {
   const url = 'https://drive.google.com/open?id=1-AszYwYOagB6hkvJVgz9cfkwd4nVG4rd';
-  t.plan(1);
+  t.plan(2);
   try {
     await fetchInfo(url);
   } catch (err) {
-    t.equals(
-      err instanceof GDriveError && err.message, 'Item is not accessible.',
-      `throws GDriveError: ${err.message}`
-    );
+    t.equals(err.name, GDriveError.name, 'throws GDriveError');
+    t.equals(err.message, 'Item is not accessible.', `with message: ${err.message}`);
   }
 });
 
@@ -91,7 +85,7 @@ test('Fetch picture info', async t => {
   t.equals(info && info.sizeBytes, expected.sizeBytes, 'correct file fetched (size match)');
   t.equals(info && info.fileName, expected.fileName, 'correct filename');
   const downloadUrl = info && info.downloadUrl;
-  t.ok(
+  t.assert(
     downloadUrl && isUrl(downloadUrl) && downloadUrl.endsWith(id),
     `correct url=${downloadUrl}`
   );
@@ -111,7 +105,7 @@ test('Fetch .txt file info', async t => {
   t.equals(info && info.sizeBytes, expected.sizeBytes, 'correct file fetched (size match)');
   t.equals(info && info.fileName, expected.fileName, 'correct filename');
   const downloadUrl = info && info.downloadUrl;
-  t.ok(
+  t.assert(
     downloadUrl && isUrl(downloadUrl) && downloadUrl.endsWith(id),
     `correct url=${downloadUrl}`
   );
