@@ -19,6 +19,13 @@ test('Extract item id from `view` link', t => {
   t.equals(getItemId(url), id, `extracted id=${id}`);
 });
 
+test('Extract item id from `edit` link', t => {
+  const id = '1OHA32KWVF21s0ahDMr8Qv2oDamQuLNoYkTN0N_RuRXA';
+  const url = `https://docs.google.com/document/d/1OHA32KWVF21s0ahDMr8Qv2oDamQuLNoYkTN0N_RuRXA/edit`;
+  t.plan(1);
+  t.equals(getItemId(url), id, `extracted id=${id}`);
+});
+
 test('Use invalid item id', async t => {
   t.plan(2);
   try {

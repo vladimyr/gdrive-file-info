@@ -90,13 +90,18 @@ async function fetchInfo(input) {
  * // with _view_ link
  * const id = getItemId('https://drive.google.com/file/d/1ObJEVgO6Y4cFjfxszUb1LhdyeKrq_wGD/view?usp=sharing');
  * //=> 1ObJEVgO6Y4cFjfxszUb1LhdyeKrq_wGD
+ *
+ * // with _edit_ link
+ * const id = getItemId('https://docs.google.com/document/d/1OHA32KWVF21s0ahDMr8Qv2oDamQuLNoYkTN0N_RuRXA/edit');
+ * // => 1OHA32KWVF21s0ahDMr8Qv2oDamQuLNoYkTN0N_RuRXA
  */
 function getItemId(url) {
   const parsed = parseUrl(url);
+  if (parsed.searchParams.has('id')) return parsed.searchParams.get('id');
   const segments = parsed.pathname.split('/');
-  const route = segments[segments.length - 1];
-  if (route === 'open') return parsed.searchParams.get('id');
-  if (route === 'view') return segments[segments.length - 2];
+  const index = segments.findIndex(it => it === 'd');
+  if (index === -1) throw TypeError(`Failed to extract id from url: ${url}`, url);
+  return segments[index + 1];
 }
 
 function redirectsTo(err, hostname) {
