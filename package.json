@@ -1,6 +1,6 @@
 {
   "name": "gdrive-file-info",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "Fetch file information for publicly shared Google Drive items.",
   "main": "index.js",
   "scripts": {
