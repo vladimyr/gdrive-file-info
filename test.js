@@ -46,13 +46,18 @@ test('Fetch public video info', async t => {
     sizeBytes: 158008374
   };
   const info = await fetchInfo(url);
-  t.plan(3);
+  t.plan(4);
   t.equals(info && info.sizeBytes, expected.sizeBytes, 'correct file fetched (size match)');
   t.equals(info && info.fileName, expected.fileName, 'correct filename');
   const downloadUrl = info && info.downloadUrl;
   t.assert(
     downloadUrl && isUrl(downloadUrl) && downloadUrl.endsWith(id),
     `correct url=${downloadUrl}`
+  );
+  const thumbnailUrl = await info.thumbnailUrl({ width: 1280, height: 720 });
+  t.assert(
+    thumbnailUrl && isUrl(thumbnailUrl),
+    `thumbnail url=${thumbnailUrl}`
   );
 });
 
@@ -88,13 +93,18 @@ test('Fetch picture info', async t => {
     sizeBytes: 114590
   };
   const info = await fetchInfo(url);
-  t.plan(3);
+  t.plan(4);
   t.equals(info && info.sizeBytes, expected.sizeBytes, 'correct file fetched (size match)');
   t.equals(info && info.fileName, expected.fileName, 'correct filename');
   const downloadUrl = info && info.downloadUrl;
   t.assert(
     downloadUrl && isUrl(downloadUrl) && downloadUrl.endsWith(id),
     `correct url=${downloadUrl}`
+  );
+  const thumbnailUrl = await info.thumbnailUrl({ width: 256, height: 256 });
+  t.assert(
+    thumbnailUrl && isUrl(thumbnailUrl),
+    `thumbnail url=${thumbnailUrl}`
   );
 });
 

@@ -18,6 +18,8 @@
     -   [Properties](#properties)
 -   [FileInfo](#fileinfo)
     -   [Properties](#properties-1)
+-   [Dimensions](#dimensions)
+    -   [Properties](#properties-2)
 -   [fetchInfo](#fetchinfo)
     -   [Parameters](#parameters)
     -   [Examples](#examples)
@@ -46,6 +48,16 @@ Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Globa
 -   `downloadUrl` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** generated direct download url
 -   `scanResult` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Google Drive scan result
 -   `sizeBytes` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** file size
+-   `thumbnailUrl` **function ([Dimensions](#dimensions)): [Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)>** 
+
+### Dimensions
+
+Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+#### Properties
+
+-   `width` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
+-   `height` **[Number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** 
 
 ### fetchInfo
 
@@ -62,6 +74,10 @@ Fetch file info for given item id
 const info = await fetchInfo('https://drive.google.com/open?id=1ObJEVgO6Y4cFjfxszUb1LhdyeKrq_wGD');
 console.log(info.downloadUrl);
 //=> https://doc-00-6c-docs.googleusercontent.com/docs/securesc/…/1ObJEVgO6Y4cFjfxszUb1LhdyeKrq_wGD
+
+// generate poster url
+const thumbnailUrl = await info.thumbnailUrl({ width: 1280, height: 720 });
+//=> https://lh3.googleusercontent.com/9CwZKAQJ2U0CjjcIt5iZCqd-w-0d5ClJuYHVlS4olLrzt6AZr9rCdDu4jVzrz9b-tK5aswE4vdA=w1280-h720-p
 ```
 
 -   Throws **[GDriveError](#gdriveerror)** throws on querying missing/private items
@@ -87,6 +103,10 @@ const id = getItemId('https://drive.google.com/open?id=1ObJEVgO6Y4cFjfxszUb1Lhdy
 // with _view_ link
 const id = getItemId('https://drive.google.com/file/d/1ObJEVgO6Y4cFjfxszUb1LhdyeKrq_wGD/view?usp=sharing');
 //=> 1ObJEVgO6Y4cFjfxszUb1LhdyeKrq_wGD
+
+// with _edit_ link
+const id = getItemId('https://docs.google.com/document/d/1OHA32KWVF21s0ahDMr8Qv2oDamQuLNoYkTN0N_RuRXA/edit');
+// => 1OHA32KWVF21s0ahDMr8Qv2oDamQuLNoYkTN0N_RuRXA
 ```
 
 Returns **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** item id

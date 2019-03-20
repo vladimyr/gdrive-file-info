@@ -42,6 +42,13 @@ module.exports = {
  * @property {String} downloadUrl generated direct download url
  * @property {String} scanResult Google Drive scan result
  * @property {Number} sizeBytes file size
+ * @property {function(Dimensions): Promise<String>} thumbnailUrl
+ */
+
+/**
+ * @typedef {Object} Dimensions
+ * @property {Number} width
+ * @property {Number} height
  */
 
 /**
@@ -56,6 +63,10 @@ module.exports = {
  * const info = await fetchInfo('https://drive.google.com/open?id=1ObJEVgO6Y4cFjfxszUb1LhdyeKrq_wGD');
  * console.log(info.downloadUrl);
  * //=> https://doc-00-6c-docs.googleusercontent.com/docs/securesc/…/1ObJEVgO6Y4cFjfxszUb1LhdyeKrq_wGD
+ *
+ * // generate poster url
+ * const thumbnailUrl = await info.thumbnailUrl({ width: 1280, height: 720 });
+ * //=> https://lh3.googleusercontent.com/9CwZKAQJ2U0CjjcIt5iZCqd-w-0d5ClJuYHVlS4olLrzt6AZr9rCdDu4jVzrz9b-tK5aswE4vdA=w1280-h720-p
  */
 async function fetchInfo(input) {
   const id = isUrl(input) ? getItemId(input) : input;
@@ -64,7 +75,9 @@ async function fetchInfo(input) {
   try {
     const resp = await r.post('/uc', { query });
     const json = resp.body.replace(JSON_PADDING, '');
-    return JSON.parse(json);
+    const info = JSON.parse(json);
+    info.thumbnailUrl = size => thumbnailUrl(id, size);
+    return info;
   } catch (err) {
     if (!(err instanceof HTTPError)) throw err;
     if (err.statusCode === 404) {
@@ -102,6 +115,24 @@ function getItemId(url) {
   const index = segments.findIndex(it => it === 'd');
   if (index === -1) throw TypeError(`Failed to extract id from url: ${url}`, url);
   return segments[index + 1];
+}
+
+/**
+ * Genearate thumbnail url for given item
+ * @private
+ * @param {String} id Google Drive item id
+ * @param {Dimensions} options thumbnail dimensions
+ * @returns {Promise<String>} thumbnail url
+ * @throws {TypeError} throws on invalid dimensions provided
+ */
+async function thumbnailUrl(id, { width, height } = {}) {
+  if (!Number.isInteger(width) || !Number.isInteger(height)) {
+    throw new TypeError('Invalid dimensions provided.');
+  }
+  const sizingOptions = [`w${width}`, `h${height}`, 'p'].join('-');
+  const query = { id, sz: sizingOptions };
+  const resp = await r.get('/thumbnail', { query, followRedirect: false });
+  return resp.headers.location;
 }
 
 function redirectsTo(err, hostname) {
