@@ -33,7 +33,7 @@
   },
   "homepage": "https://github.com/vladimyr/gdrive-file-info",
   "dependencies": {
-    "got": "^9.5.0"
+    "got": "^11.8.5"
   },
   "devDependencies": {
     "documentation": "^9.3.1",
